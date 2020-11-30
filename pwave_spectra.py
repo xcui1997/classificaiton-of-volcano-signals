@@ -56,7 +56,7 @@ if __name__ == '__main__':
     data_container = []
     name_container = []
     fi_container = []
-    for sacname in glob.glob("../data/*/*.SAC"):
+    for sacname in glob.glob("data/*/*.SAC"):
         tr = read(sacname)[0]
         tr.filter(type='bandpass', freqmin=1, freqmax=15)
         t = np.arange(tr.stats.npts) / tr.stats.sampling_rate
