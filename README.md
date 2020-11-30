@@ -9,6 +9,6 @@
 ## pwave_spectra.py
 
 如果sac文件储存在 `/data/station_name/` 下，不需要任何更改．这个脚本会选出符合要求的（snr>3）事件并截取p波到时前后各1.28s的波形并计算其幅度谱．
-输出文件包括：｀/output/pkl/amp_container.pkl　　　/output/pkl/TimeSeries_container.pkl　　/output/pkl/name_container.pkl　　　/output/pkl/fi_container.pkl｀分别为事件对应的幅度谱，时间序列，事件sac名称，以及计算得到的事件的FI值． 以及所有事件的FI 分布图．
+输出文件包括：`/output/pkl/amp_container.pkl /output/pkl/TimeSeries_container.pkl　　/output/pkl/name_container.pkl　　　/output/pkl/fi_container.pkl`分别为事件对应的幅度谱，时间序列，事件sac名称，以及计算得到的事件的FI值． 以及所有事件的FI 分布图．
 
 
