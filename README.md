@@ -1,2 +1,5 @@
-# Classificaiton-of-volcano-signals
-There are two types of volcanic signals.These two events show a partially overlapping normal distribution under FI
+#火山信号分类（单台站）
+火山区域长期存在多种信号，包括低频（LP和hybrid）以及高频(普通构造事件和火山构造事件（VT）)．在之前Frequency Index(FI)中，事件呈双峰分布．这里简略介绍一下我们所使用的方法:
+
+
+
