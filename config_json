@@ -1,0 +1,7 @@
+{
+    "data_dir":"data/HV_OTLD",
+    "snr": 3,
+    "win_len": 1.28,
+    "events_catalog": "events_catalog",
+    "n_cls": 20
+}
