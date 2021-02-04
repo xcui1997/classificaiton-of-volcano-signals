@@ -1,43 +1,28 @@
-# 火山信号分类（单台站）
-火山区域长期存在多种信号，包括低频（LP和hybrid）以及高频(普通构造事件和火山构造事件（VT）)．在之前Frequency Index(FI)中，事件呈双峰分布．这里简略介绍一下脚本功能:
+# The classification of volcan signals（single station）
+
+THe spatiotemporal evolutions of long-period(LP), hybrid and volcanic tectonic (VT) seismicity are important for tracking the evolution of underlying volcanic proces. Here, by defining a spectral dissimilarity metric, we perform cluster analysis in seismic events in Kilauea volcano.
 
 
 ## data
-数据来自HV.OTLD台站从2011年１月到2018年10月(包括2018年1月到2018年４月模板匹配找到的事件)记录到的事件．每一个事件的波形窗口开始于P波到时10秒之前以及S波到时10秒之后，　并且已经经过了一系列数据预处理过程(去均值, 去仪器响应，去线性趋势等)．（但是由于github上数据大小的限制，这次只上传了2018年2月和3月两个月的数据．）
-> 数据时间窗口长度可以变化，但是至少要包括P波到时前后各５秒的波形．数据命名需要和地震目录上的事件发生时刻一致．且下载后数据需要解压
+The data are HV.OTLD, From Jan., 2011 to Oct., 2018．The window length of each event is 10s before the p wave arrival time and 10s after S wave arriival time
+> The length can be shorter than this example, but sholud be more than 5 sec. The name of the events is the original time of eathquakes (The catalog time).
 
-## pwave_spectra.py
+## config_json
+"data_dir": The path of sac files.
+"snr": 3
+"win_len": 1.28 (We select the 12.8s before and after P wave arrival time to calculate the spectrum)
+"events_catalog": "events_catalog" (events catalog)
+"n_cls": 20 (The number of clusters)
 
-如果sac文件储存在 `/data/station_name/` 下，不需要任何更改．这个脚本会选出符合要求的（snr>5）事件并截取p波到时前后各1.28s的波形并计算其幅度谱．
-输出文件包括：`/output/pkl/amp_container.pkl /output/pkl/TimeSeries_container.pkl　　/output/pkl/name_container.pkl　　　/output/pkl/fi_container.pkl`分别为事件对应的幅度谱，时间序列，事件sac名称，以及计算得到的事件的FI值． 以及所有事件的FI 分布图．
-> 选取snr>3时，有较为明显的双峰分布，但单台更容易受到噪声干扰，对于单台我们选取snr>５. 虽然这样会导致部分LP信号丢失，双峰信号不明显
+## Run the script
+You can run the test code as:
+```
+python volcano_signals_classification.py (-P) config_json
+```
+## Results
+`out\png` : clsi.pdf (100 spectra of each clusters); mean_spectra; fre_energy;  med_dis.pdf; hist.png and dendrogram.pdf
+`out\text`: clusteri.dat (the catalog of 20 clusters); new_catalog (add FI and cluster Num. to the events_catalog)
+peak_amp_size: used to plot fre_energy.pdf
 
-## amp_EM.py
+```
 
-用于计算事件对之间的dissimilarity, 一般来说所需时间较长,不需要任何更改.
-
-## Eval_Dist.py
-将算出的dissimilarity矩阵可视化．
-
-## cluster.py
-对事件进行分类，画出分类结果的树状图和统计图`/output/dendrogram.png  /output/hist.png`，以及每一类的幅度谱`/output/cls_png/*`
-
-## Mean_AMP.py
-计算平均幅度谱
-
-## peaks_width.py
-并画出其＂峰值频率－宽度＂空间分布图．
-
-## time_location.py
-生成对应事件的时空信息
-
-## group_txt.py
-根据峰值频率－宽度空间分布图，选择将数据分成相应的组数，生成每一组事件的catalog. 目录存在`../output/txt`
-这需要修改成＂峰值频率－宽度＂对应的结果
-
-## 结果分析
-与多台站相比，单台站结果更容易受噪声干扰，为了避免噪声提高snr阈值一定层度上削弱了事件的双峰性．这也导致分类结果与多台站相比不够清晰．
----
-## 补充
->　数据命名和储存文件命名和范例一致的情况下，按顺序运行下列脚本即可．需要修改的只是最后一个`group_txt.py`，这需要根据上面空间分布图来选择分类对应的分组．
->　目前这份脚本只是初稿，之后有时间会将其规范完善，并上传多台站处理脚本与结果．
